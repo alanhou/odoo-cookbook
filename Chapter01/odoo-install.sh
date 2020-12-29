@@ -38,11 +38,14 @@ cd ~/odoo-dev
 git clone -b 14.0 --single-branch --depth 1 https://github.com/odoo/odoo.git
 
 echo -e "\n---- Create & activate virtualenv ----"
+sudo apt-get install python3-venv -y
 python3 -m venv ~/venv-odoo-14.0 
 source ~/venv-odoo-14.0/bin/activate
 
 echo -e "\n---- Install Python dependencies  ----"
 cd ~/odoo-dev/odoo/ 
+# error: invalid command 'bdist_wheel'
+pip3 install wheel
 pip3 install -r requirements.txt
 
 echo -e "\n---- Start Odoo instance  ----"
