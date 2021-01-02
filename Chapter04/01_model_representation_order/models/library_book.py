@@ -13,3 +13,11 @@ class LibraryBook(models.Model):
         'res.partner',
         string='Authors'
     )
+
+        def name_get(self):
+        """本方法用于自定义记录的显示名称"""
+        result = []
+        for record in self:
+            rec_name = "%s (%s)" % (record.name, record.date_release)
+            result.append((record.id, rec_name))
+        return result
