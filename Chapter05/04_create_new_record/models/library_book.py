@@ -12,6 +12,7 @@ class LibraryBook(models.Model):
         'res.partner',
         string='Authors'
     )
+    category_id = fields.Many2one('library.book.category', string='Category')
     state = fields.Selection([
         ('draft', 'Unavailable'),
         ('available', 'Available'),

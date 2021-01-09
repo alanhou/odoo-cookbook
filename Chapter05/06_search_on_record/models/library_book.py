@@ -1,6 +1,9 @@
+import logging
 from odoo import models, fields, api
 from odoo.exceptions import UserError
 from odoo.tools.translate import _
+
+logger = logging.getLogger(__name__)
 
 
 class LibraryBook(models.Model):
@@ -13,6 +16,7 @@ class LibraryBook(models.Model):
         string='Authors'
     )
     category_id = fields.Many2one('library.book.category', string='Category')
+    
     state = fields.Selection([
         ('draft', 'Unavailable'),
         ('available', 'Available'),
@@ -56,6 +60,19 @@ class LibraryBook(models.Model):
     def change_release_date(self):
         self.ensure_one()
         self.date_release = fields.Date.today()
+
+    def find_book(self):
+        domain = [
+            '|',
+                '&', ('name', 'ilike', 'Book Name'),
+                    ('category_id.name', 'ilike', 'Category Name'),
+                '&', ('name', 'ilike', 'Book Name 2'),
+                    ('category_id.name', 'ilike', 'Category Name 2'),
+        ]
+        books = self.search(domain)
+        logger.info('Books found: %s', books)
+        return True
+
 
 class LibraryMember(models.Model):
     _name = 'library.member'
