@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <act_window
+        id="action_all_customers_cn"
+        name="所有客户"
+        res_model="res.partner"
+        domain="[('customer_rank', '>', 0)]"
+        context="{'lang': 'zh_CN', 'default_lang': 'zh_CN', 'active_test':False, 'default_customer_rank':1}"
+    />
+    <menuitem id="menu_custom_top_level" name="My App Menu" web_icon="my_module,static/description/icon.png" />
+    <menuitem id="menu_all_customers" parent="menu_custom_top_level" action="action_all_customers_cn" sequence="10" />
+</odoo>
