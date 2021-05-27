@@ -8,9 +8,16 @@ from odoo.addons.website.models.ir_http import sitemap_qs2dom
 class Main(http.Controller):
     @http.route('/books', type='http', auth="user", website=True)
     def library_books(self):
+        country_id = False
+        country_code = request.session.geoip and request.session.geoip.get('country_code') or False
+        if country_code:
+            country_ids = request.env['res.country'].sudo().search([('code', '=', country_code)])
+            if country_ids:
+                country_id = country_ids[0].id
+        domain = ['|', ('restrict_country_ids', '=', False), ('restrict_country_ids', 'not in', [country_id])]
         return request.render(
             'my_library.books', {
-                'books': request.env['library.book'].search([]),
+                'books': request.env['library.book'].search(domain),
             })
 
     def sitemap_books(env, rule, qs):
