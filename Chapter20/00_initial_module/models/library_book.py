@@ -11,16 +11,16 @@ class LibraryBook(models.Model):
     date_release = fields.Date('Release Date')
     author_ids = fields.Many2many('res.partner', string='Authors')
     state = fields.Selection(
-        [('available', 'Available'),
-         ('borrowed', 'Borrowed'),
+        [('draft', 'Not Available'),
+         ('available', 'Available'),
          ('lost', 'Lost')],
         'State', default="available")
     color = fields.Integer()
 
     def make_available(self):
-        self.ensure_one()
-        self.state = 'available'
+        self.write({'state': 'available'})
+        return True
 
     def make_lost(self):
-        self.ensure_one()
-        self.state = 'lost'
+        self.write({'state': 'lost'})
+        return True
