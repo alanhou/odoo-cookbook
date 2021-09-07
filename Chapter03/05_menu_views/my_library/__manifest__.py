@@ -11,6 +11,6 @@ Description related to library.
     'category': 'Uncategorized',
     'version': '14.0.1',
     'depends': ['base'],
-    'data': ['views/views.xml'],
+    'data': ['views/library_book.xml'],
     #'demo': ['demo.xml'],
 }
